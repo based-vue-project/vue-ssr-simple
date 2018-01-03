@@ -10,6 +10,10 @@ import store from './store/store_index'
 Vue.use(vueAxios, axios)
 Vue.use(Vuex)
 
+if (window.__INITIAL_STATE__) {
+	store.replaceState(window.__INITIAL_STATE__)
+}
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
