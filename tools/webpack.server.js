@@ -1,12 +1,13 @@
 const path = require('path');
 const projectRoot = path.resolve(__dirname, '..');
+const VueSSRPlugin = require('vue-ssr-webpack-plugin')
 module.exports = {
     target: 'node', // !different
     entry: path.join(projectRoot, 'src/server-index.js'),
     output: {
-        libraryTarget: 'commonjs2', // !different
-        path: path.join(projectRoot, 'build'),
-        filename: 'bundle.server.js',
+        libraryTarget: 'commonjs2' // !different
+        // path: path.join(projectRoot, 'build'),
+        // filename: 'bundle.server.js',
     },
     module: {
         rules: [{
@@ -21,4 +22,9 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+    	new VueSSRPlugin({
+    		filename: './build/vue-ssr-bundle.json'
+    	})
+    ]
 }

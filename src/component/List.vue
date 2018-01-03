@@ -10,27 +10,27 @@
 </template>
 
 <script>
-	// import Vue from 'vue'
-	// import { mapGetters } from 'vuex'
-	// import { LIST } from '../store/mutation-types'
+	import Vue from 'vue'
+	import { mapGetters } from 'vuex'
+	import { LIST } from '../store/mutation-types'
 	export default {
 		data() {
 			return {
-				list: [{
-                    "appointStatus": 0,
-                    "image": "https://imgproxy.mtime.cn/get.ashx?uri=http://img5.mtime.cn/mg/2017/05/05/183558.90013339.jpg",
-                    "liveId": 634,
-                    "liveStatus": 4,
-                    "startTime": 1494313262000,
-                    "statistic": 64783,
-                    "title": "《超凡战队》首映礼发布会",
-                    "videoId": 0
-                }]
+				// list: [{
+    //                 "appointStatus": 0,
+    //                 "image": "https://imgproxy.mtime.cn/get.ashx?uri=http://img5.mtime.cn/mg/2017/05/05/183558.90013339.jpg",
+    //                 "liveId": 634,
+    //                 "liveStatus": 4,
+    //                 "startTime": 1494313262000,
+    //                 "statistic": 64783,
+    //                 "title": "《超凡战队》首映礼发布会",
+    //                 "videoId": 0
+    //             }]
 			}
 		},
-		// computed: {
-	 //      ...mapGetters(['list'])
-	 //    },
+		computed: {
+	      ...mapGetters(['list'])
+	    },
 	 //    mounted() {
 		// 	Vue.axios.get('http://localhost:3000/data').then((res) => {
 		// 		const list = res.data.data.liveWodList

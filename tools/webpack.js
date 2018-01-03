@@ -3,6 +3,8 @@ const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const fs = require('fs-extra')
 const rootPath = path.resolve(__dirname, '../')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+
 /*eslint-disable indent */
 const vueLoader = {
     loaders: {
@@ -38,7 +40,7 @@ function getConfig() {
 		entry: path.resolve(rootPath, 'src/index.js'),
 		output: {
 			path: path.resolve(rootPath, 'build/client'),
-			publicPath: '../',
+			publicPath: 'client/',
 			filename: 'script/[name].js'
 		},
 		devtool: '#eval-source-map',
@@ -81,7 +83,11 @@ function getConfig() {
         	new ExtractTextPlugin('css/[name].css'),
         	new webpack.optimize.CommonsChunkPlugin({
         		names: ['vendors']
-        	})
+        	}),
+            new HtmlWebpackPlugin({
+                template: 'index.html',
+                filename: 'index.html'
+            })
         ]
 	}
 	return config

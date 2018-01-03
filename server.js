@@ -1,8 +1,37 @@
 const express = require('express')
 const app = express()
-const fs = require('fs')
+const fs = require('fs-extra')
 const path =require('path')
 const vueServerRenderer = require('vue-server-renderer')
+const template = `
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="renderer" content="webkit" />
+    <meta name="360-fullscreen" content="true" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="full-screen" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="http-equiv=X-UA-COMPATIBLE" content="IE=edge,chrome=1" />
+    <link type="image/x-icon" href="//static1.mtime.cn/favicon.ico" rel="shortcut icon" />
+    <link type="image/x-icon" href="//static1.mtime.cn/favicon.ico" rel="bookmark" />
+    <link rel="apple-touch-icon" href="//static1.mtime.cn/favicon.ico" />
+    <title>电影推荐看单</title>
+<link href="client/css/main.css" rel="stylesheet"></head>
+
+<body>
+    <div id="app">
+    <!--vue-ssr-outlet-->
+    </div>
+
+<script type="text/javascript" src="client/script/vendors.js"></script><script type="text/javascript" src="client/script/main.js"></script></body>
+
+</html>
+`
 
 app.all('*', function (req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*")
@@ -12,7 +41,7 @@ app.all('*', function (req, res, next) {
 	if (req.method == "OPTIONS") res.send(200);
 	else next()
 })
-/* app.use(express.static('./build'))
+app.use(express.static('./build'))
 app.use('/data', (req, res, nexr) => {
 	res.send({
 		"code": 1,
@@ -160,20 +189,21 @@ app.use('/data', (req, res, nexr) => {
         "msg": "",
         "showMsg": ""
 	})
-}) */
-app.get('/', function (req,resp) {
-    const filePath = path.join(__dirname, './build/bundle.server.js')
-    const code = fs.readFileSync(filePath, 'utf-8')
-    const bundleRenderer = vueServerRenderer.createBundleRenderer(code)
+})
+app.get('/', function (req, resp) {
+    const filePath = path.join(__dirname, './build/vue-ssr-bundle.json')
+    const code = fs.readJsonSync(filePath)
+    const bundleRenderer = vueServerRenderer.createBundleRenderer(code, {
+        template: template
+    });
     bundleRenderer.renderToString((err, html) => {
-        if(err) {
-            console.log(err.message)
-            console.log(err.stack)
+        if (err) {
+            console.log(err.message);
+            console.log(err.stack);
         }
-        console.log(html)
+        console.log(html);
         resp.send(html)
-    })
-
+    });
 })
 app.listen(3000, () => {
 	console.log('Listen 3000')
