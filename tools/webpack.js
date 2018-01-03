@@ -68,13 +68,14 @@ function getConfig() {
             }]
         },
         resolve: {
-        	alias: {
+        	alias: {  // 定义文件路径，加速打包过程中webpack路径查找过程
         		'vue$': 'vue/dist/vue.common.js',
         		'components': path.join(rootPath, 'src/client/components'),
         		'lib': path.join(rootPath, '/src/lib'),
         		'less': path.join(rootPath, '/src/less'),
         		'@': path.join(rootPath)
-        	}
+        	},
+            extensions: ['.js','.less', '.vue','*','.json'] // 可以不加后缀，直接使用import xx from 'xx'
         },
         plugins: [
         	new ExtractTextPlugin('css/[name].css'),

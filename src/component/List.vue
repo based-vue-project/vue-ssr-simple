@@ -11,12 +11,15 @@
 
 <script>
 	import Vue from 'vue'
+	import { mapGetters } from 'vuex'
+	import { LIST } from '../store/mutation-types'
 	export default {
 		data() {
-			return {
-				list: []
-			}
+			return {}
 		},
+		computed: {
+	      ...mapGetters(['list'])
+	    },
 		methods: {
 			showTitle(title) {
 				alert(title)
@@ -25,8 +28,7 @@
 		mounted() {
 			Vue.axios.get('http://localhost:3000/data').then((res) => {
 				const list = res.data.data.liveWodList
-				this.list = list
-				console.log(list)
+				this.$store.commit(LIST.GET_DATA, list)
 			})
 		}
 	}
