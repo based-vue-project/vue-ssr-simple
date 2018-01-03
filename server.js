@@ -1,6 +1,10 @@
 const express = require('express')
 const app = express()
-app.get('*', function (req, res, next) {
+const fs = require('fs')
+const path =require('path')
+const vueServerRenderer = require('vue-server-renderer')
+
+app.all('*', function (req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*")
 	res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With")
 	res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS")
@@ -8,7 +12,7 @@ app.get('*', function (req, res, next) {
 	if (req.method == "OPTIONS") res.send(200);
 	else next()
 })
-app.use(express.static('./build'))
+/* app.use(express.static('./build'))
 app.use('/data', (req, res, nexr) => {
 	res.send({
 		"code": 1,
@@ -156,6 +160,20 @@ app.use('/data', (req, res, nexr) => {
         "msg": "",
         "showMsg": ""
 	})
+}) */
+app.get('/', function (req,resp) {
+    const filePath = path.join(__dirname, './build/bundle.server.js')
+    const code = fs.readFileSync(filePath, 'utf-8')
+    const bundleRenderer = vueServerRenderer.createBundleRenderer(code)
+    bundleRenderer.renderToString((err, html) => {
+        if(err) {
+            console.log(err.message)
+            console.log(err.stack)
+        }
+        console.log(html)
+        resp.send(html)
+    })
+
 })
 app.listen(3000, () => {
 	console.log('Listen 3000')
