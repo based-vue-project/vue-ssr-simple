@@ -5,7 +5,7 @@
   "author": "fen666 <lf00817@163.com>",
   "private": true,
   "scripts": {
-    "build": "node tools/dev.js",
+    "dev": "node tools/dev.js",
     "start": "node server"
   },
   "dependencies": {
@@ -13,6 +13,7 @@
     "express": "^4.16.2",
     "fs-extra": "^5.0.0",
     "vue": "^2.5.2",
+    "vue-server-renderer": "^2.5.2",
     "vue-axios": "^2.0.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
