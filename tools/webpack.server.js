@@ -1,3 +1,4 @@
+/* vue-ssr 生成vue-ssr-bundle.json文件 */
 const path = require('path');
 const projectRoot = path.resolve(__dirname, '..');
 const VueSSRPlugin = require('vue-ssr-webpack-plugin')

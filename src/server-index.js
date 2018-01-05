@@ -1,4 +1,4 @@
-// server-entry.js
+// server-entry.js 获取数据，存放在vuex,并将state存在context
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
@@ -11,7 +11,7 @@ import store from './store/store_index'
 import { LIST } from './store/mutation-types'
 
 const app = new Vue({
-	...App,
+	...App,  // 另一个写法 render: h => h(App)，此处用法？？
 	store
 });
 // the default export should be a function
